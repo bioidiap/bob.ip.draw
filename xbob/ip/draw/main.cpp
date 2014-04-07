@@ -85,7 +85,7 @@ static xbob::extension::FunctionDoc s_line = xbob::extension::FunctionDoc(
 
     .add_prototype("image, p1, p2, color")
     .add_parameter("image", "array (uint8|uint16|float64, 3D)", "Input array containing an image with the shape ``(height, width)`` (for gray-scale images) or ``(3, height, width)`` (for color images)")
-    .add_parameter("p", "tuple", "Points, on the format ``(y, x)``, defining the start and end of the line. Portions of the line outside the image range will be ignored.")
+    .add_parameter("p1, p2", "tuple", "Points, on the format ``(y, x)``, defining the start and end of the line. Portions of the line outside the image range will be ignored.")
     .add_parameter("color", "scalar|tuple", "Color of the pixel. In case the input image is gray-scale (2D), this should be a single scalar. If the input image is colored (3D), then it should be a sequence containing 3 scalars, representing the levels of red, green and blue (in this order) of the pixel to be drawn.")
     ;
 

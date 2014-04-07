@@ -12,6 +12,8 @@ This module contains base functionality from Bob bound to Python, available in
 the C++ counter-part ``bob::ip``. It includes utilities for drawing lines and
 boxes in images.
 
+.. todolist::
+
 Documentation
 -------------
 
