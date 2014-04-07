@@ -11,7 +11,7 @@
 import numpy
 import nose.tools
 
-from . import point, line, box, try_point
+from . import point, try_point#, line, box
 
 def test_gray_point():
 
@@ -31,11 +31,11 @@ def test_does_not_raise_gray():
   try_point(imcopy, 100, 100, 255)
   assert  numpy.array_equal(image, imcopy)  # no change is made
 
-@nose.tools.raises(IndexError)
+@nose.tools.raises(RuntimeError)
 def test_raises_gray():
 
   image = numpy.ndarray((100, 100), 'uint8')
-  point(imcopy, 100, 100, 255)
+  point(image, 100, 100, 255)
 
 def test_color_point():
 
@@ -57,10 +57,10 @@ def test_does_not_raise_color():
   image = numpy.ndarray((3, 100, 100), 'uint8')
   image.fill(0)
   imcopy = image.copy()
-  try_point(imcopy, 100, 100, white)
+  try_point(imcopy, 100, 100, (255, 255, 255))
   assert numpy.array_equal(image, imcopy) # no change is made
 
-@nose.tools.raises(IndexError)
+@nose.tools.raises(RuntimeError)
 def test_raises_color():
 
   image = numpy.ndarray((3, 100, 100), 'uint8')

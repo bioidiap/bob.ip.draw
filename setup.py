@@ -7,7 +7,7 @@ from setuptools import setup, find_packages, dist
 dist.Distribution(dict(setup_requires=['xbob.blitz']))
 from xbob.blitz.extension import Extension
 
-packages = ['bob-ip >= 1.2.2']
+packages = ['bob-ip >= 1.2.2', 'boost']
 version = '2.0.0a0'
 
 setup(
@@ -45,6 +45,8 @@ setup(
         ),
       Extension("xbob.ip.draw._library",
         [
+          "xbob/ip/draw/point.cpp",
+          "xbob/ip/draw/try_point.cpp",
           "xbob/ip/draw/main.cpp",
           ],
         packages = packages,
