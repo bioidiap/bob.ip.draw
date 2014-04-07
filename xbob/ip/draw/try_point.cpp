@@ -13,6 +13,8 @@
 #include <boost/tuple/tuple.hpp>
 #include <bob/ip/drawing.h>
 
+#include "utils.h"
+
 template <typename T>
 static PyObject* inner_point (PyBlitzArrayObject* image,
     int y, int x, PyObject* color) {
@@ -21,12 +23,9 @@ static PyObject* inner_point (PyBlitzArrayObject* image,
 
     case 2:
       {
-        if (!PyArray_CheckScalar(color) && !PyNumber_Check(color)) {
-          PyErr_Format(PyExc_TypeError, "drawing on a 2D image (gray-scale) requires a color which is a scalar, not `%s'", Py_TYPE(color)->tp_name);
-          return 0;
-        }
-        T c = PyBlitzArrayCxx_AsCScalar<T>(color);
-        if (PyErr_Occurred()) return 0;
+        T c;
+        int ok = get_color1(color, c);
+        if (!ok) return 0;
 
         try {
           bob::ip::try_draw_point(*PyBlitzArrayCxx_AsBlitz<T,2>(image), y, x, c);
@@ -44,19 +43,13 @@ static PyObject* inner_point (PyBlitzArrayObject* image,
 
     case 3:
       {
-        if (!PySequence_Check(color) || (PySequence_Fast_GET_SIZE(color) != 3)) {
-          PyErr_Format(PyExc_TypeError, "drawing on a 3D image (colored) requires a color which is a sequence (tuple, list, etc) with 3 components");
-          return 0;
-        }
-        boost::tuple<T,T,T> c(
-            PyBlitzArrayCxx_AsCScalar<T>(PyTuple_GET_ITEM(color, 0)),
-            PyBlitzArrayCxx_AsCScalar<T>(PyTuple_GET_ITEM(color, 1)),
-            PyBlitzArrayCxx_AsCScalar<T>(PyTuple_GET_ITEM(color, 2))
-            );
-        if (PyErr_Occurred()) return 0;
+        T r, g, b;
+        int ok = get_color3(color, r, g, b);
+        if (!ok) return 0;
 
         try {
-          bob::ip::try_draw_point(*PyBlitzArrayCxx_AsBlitz<T,3>(image), y, x, c);
+          bob::ip::try_draw_point(*PyBlitzArrayCxx_AsBlitz<T,3>(image), y, x,
+              boost::tuple<T,T,T>(r, g, b));
         }
         catch (std::exception& e) {
           PyErr_Format(PyExc_RuntimeError, "%s", e.what());
@@ -82,16 +75,16 @@ static PyObject* inner_point (PyBlitzArrayObject* image,
 
 PyObject* PyBobIpDraw_TryPoint (PyObject*, PyObject* args, PyObject* kwds) {
 
-  static const char* const_kwlist[] = {"image", "y", "x", "color", 0};
+  static const char* const_kwlist[] = {"image", "p", "color", 0};
   static char** kwlist = const_cast<char**>(const_kwlist);
 
   PyBlitzArrayObject* image = 0;
-  Py_ssize_t x = 0;
   Py_ssize_t y = 0;
+  Py_ssize_t x = 0;
   PyObject* color = 0;
 
-  if (!PyArg_ParseTupleAndKeywords(args, kwds, "O&nnO", kwlist,
-        &PyBlitzArray_OutputConverter, &image, &x, &y, &color)) return 0;
+  if (!PyArg_ParseTupleAndKeywords(args, kwds, "O&(nn)O", kwlist,
+        &PyBlitzArray_OutputConverter, &image, &y, &x, &color)) return 0;
 
   //protects acquired resources through this scope
   auto image_ = make_safe(image);
