@@ -7,7 +7,7 @@ from setuptools import setup, find_packages, dist
 dist.Distribution(dict(setup_requires=['xbob.blitz']))
 from xbob.blitz.extension import Extension
 
-packages = ['bob-ip >= 1.2.2', 'boost']
+packages = ['boost']
 version = '2.0.0a0'
 
 setup(

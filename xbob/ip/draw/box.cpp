@@ -9,9 +9,8 @@
 
 #include <xbob.blitz/cppapi.h>
 #include <xbob.blitz/cleanup.h>
-#include <boost/tuple/tuple.hpp>
-#include <bob/ip/drawing.h>
 
+#include "drawing.h"
 #include "utils.h"
 
 template <typename T>
