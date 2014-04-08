@@ -149,9 +149,38 @@ static xbob::extension::FunctionDoc s_plus = xbob::extension::FunctionDoc(
     .add_parameter("color", "scalar|tuple", "Color of the cross sign. In case the input image is gray-scale (2D), this should be a single scalar. If the input image is colored (3D), then it should be a sequence containing 3 scalars, representing the levels of red, green and blue (in this order) of the pixel to be drawn. The type of scalars representing colors should match the pixel type in ``image``.")
     ;
 
-/**
-  def("draw_box", &draw_box, (arg("image"), arg("y"), arg("x"), arg("height"), arg("width"), arg("color")), "Draws a box at the image using the draw_line() primitive. This method supports both grayscale (2D) or color RGB (3D) images. Depending on your image type, select an appropriate color value: a single gray value for 2D grayscale images or a 3-tuple containing the RGB color to set during drawing.");
-**/
+extern PyObject* PyBobIpDraw_Box(PyObject*, PyObject* args, PyObject* kwds);
+static xbob::extension::FunctionDoc s_box = xbob::extension::FunctionDoc(
+    "box",
+
+    "Draws a box anchored at a point, with the given dimensions.",
+
+    "This method draws a box, using the :py:func:`line` primitives, into the "
+    "provided image. The box will be anchored at a given point, which refers "
+    "to its upper-left corner and have a certain size, defined in terms of "
+    "its height and width.\n"
+    "\n"
+    "The line may go out of the image bounds in which case such points "
+    "(lying outside the image boundary) are ignored.\n"
+    "\n"
+    "See also: http://en.wikipedia.org/wiki/Bresenham's_line_algorithm.\n"
+    "\n"
+    "This function can work with either gray-scale or color images. "
+    "In case you pass a 2D array representing a gray-scale image, this function "
+    "expects you pass a single scalar as a value for the input parameter "
+    "``color``. In the case you pass a 3D array (color image), then the color "
+    "parameter should be set to a tuple contanining 3 scalars representing the "
+    "levels for each of the color components (red, green and blue)\n"
+    "\n"
+
+    )
+
+    .add_prototype("image, p, size, color")
+    .add_parameter("image", "array (uint8|uint16|float64, 3D)", "Input array containing an image with the shape ``(height, width)`` (for gray-scale images) or ``(3, height, width)`` (for color images)")
+    .add_parameter("p", "tuple", "a point, on the format ``(y, x)``, defining the location on the image of the **upper-left** corner of the box.")
+    .add_parameter("size", "tuple", "a tuple of integers on the format ``(height, width)`` indicating the size of the box.")
+    .add_parameter("color", "scalar|tuple", "Color of the pixel. In case the input image is gray-scale (2D), this should be a single scalar. If the input image is colored (3D), then it should be a sequence containing 3 scalars, representing the levels of red, green and blue (in this order) of the pixel to be drawn. The type of scalars representing colors should match the pixel type in ``image``.")
+    ;
 
 static PyMethodDef module_methods[] = {
     {
@@ -183,6 +212,12 @@ static PyMethodDef module_methods[] = {
       (PyCFunction)PyBobIpDraw_Plus,
       METH_VARARGS|METH_KEYWORDS,
       s_plus.doc()
+    },
+    {
+      s_box.name(),
+      (PyCFunction)PyBobIpDraw_Box,
+      METH_VARARGS|METH_KEYWORDS,
+      s_box.doc()
     },
     {0}  /* Sentinel */
 };

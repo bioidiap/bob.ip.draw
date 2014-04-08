@@ -11,7 +11,7 @@
 import numpy
 import nose.tools
 
-from . import point, try_point, line, cross, plus#, box
+from . import point, try_point, line, cross, plus, box
 
 def test_gray_point():
 
@@ -128,7 +128,7 @@ def test_box():
   image.fill(0)
 
   # Draws a white line on the middle (horizontal)
-  box(image, 50, 50, 20, 20, 255)
+  box(image, (50, 50), (20, 20), 255)
 
   for k in range(50,70):
     nose.tools.eq_(image[k,50], 255)

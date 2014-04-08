@@ -2,7 +2,7 @@
  * @author André Anjos <andre.anjos@idiap.ch>
  * @date Mon  7 Apr 14:50:46 2014 CEST
  *
- * @brief Binds point drawing operator to Python
+ * @brief Binds cross drawing operators to Python
  *
  * Copyright (C) 2011-2014 Idiap Research Institute, Martigny, Switzerland
  */

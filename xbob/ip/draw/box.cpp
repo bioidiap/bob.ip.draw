@@ -1,8 +1,8 @@
 /**
  * @author André Anjos <andre.anjos@idiap.ch>
- * @date Mon  7 Apr 17:57:11 2014 CEST
+ * @date Tue  8 Apr 09:34:47 2014 CEST
  *
- * @brief Binds line drawing operator to Python
+ * @brief Binds box drawing operator to Python
  *
  * Copyright (C) 2011-2014 Idiap Research Institute, Martigny, Switzerland
  */
@@ -15,8 +15,8 @@
 #include "utils.h"
 
 template <typename T>
-static PyObject* inner_line (PyBlitzArrayObject* image,
-    Py_ssize_t y1, Py_ssize_t x1, Py_ssize_t y2, Py_ssize_t x2, PyObject* color) {
+static PyObject* inner_box (PyBlitzArrayObject* image,
+    Py_ssize_t y, Py_ssize_t x, Py_ssize_t h, Py_ssize_t w, PyObject* color) {
 
   switch (image->ndim) {
 
@@ -27,15 +27,15 @@ static PyObject* inner_line (PyBlitzArrayObject* image,
         if (!ok) return 0;
 
         try {
-          bob::ip::draw_line(*PyBlitzArrayCxx_AsBlitz<T,2>(image), y1, x1,
-              y2, x2, c);
+          bob::ip::draw_box(*PyBlitzArrayCxx_AsBlitz<T,2>(image), y, x,
+              h, w, c);
         }
         catch (std::exception& e) {
           PyErr_Format(PyExc_RuntimeError, "%s", e.what());
           return 0;
         }
         catch (...) {
-          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw_line");
+          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw_box");
           return 0;
         }
 
@@ -49,15 +49,15 @@ static PyObject* inner_line (PyBlitzArrayObject* image,
         if (!ok) return 0;
 
         try {
-          bob::ip::draw_line(*PyBlitzArrayCxx_AsBlitz<T,3>(image), y1, x1,
-              y2, x2, boost::tuple<T,T,T>(r, g, b));
+          bob::ip::draw_box(*PyBlitzArrayCxx_AsBlitz<T,3>(image), y, x,
+              h, w, boost::tuple<T,T,T>(r, g, b));
         }
         catch (std::exception& e) {
           PyErr_Format(PyExc_RuntimeError, "%s", e.what());
           return 0;
         }
         catch (...) {
-          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw_point");
+          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw_box");
           return 0;
         }
 
@@ -74,18 +74,18 @@ static PyObject* inner_line (PyBlitzArrayObject* image,
 
 }
 
-PyObject* PyBobIpDraw_Line (PyObject*, PyObject* args, PyObject* kwds) {
+PyObject* PyBobIpDraw_Box (PyObject*, PyObject* args, PyObject* kwds) {
 
-  static const char* const_kwlist[] = {"image", "p1", "p2", "color", 0};
+  static const char* const_kwlist[] = {"image", "p", "size", "color", 0};
   static char** kwlist = const_cast<char**>(const_kwlist);
 
   PyBlitzArrayObject* image = 0;
-  Py_ssize_t y1, x1, y2, x2;
+  Py_ssize_t y, x, h, w;
   PyObject* color = 0;
 
   if (!PyArg_ParseTupleAndKeywords(args, kwds, "O&(nn)(nn)O", kwlist,
         &PyBlitzArray_OutputConverter, &image,
-        &y1, &x1, &y2, &x2, &color)) return 0;
+        &y, &x, &h, &w, &color)) return 0;
 
   //protects acquired resources through this scope
   auto image_ = make_safe(image);
@@ -93,13 +93,13 @@ PyObject* PyBobIpDraw_Line (PyObject*, PyObject* args, PyObject* kwds) {
   switch(image->type_num) {
 
     case NPY_UINT8:
-      return inner_line<uint8_t>(image, y1, x1, y2, x2, color);
+      return inner_box<uint8_t>(image, y, x, h, w, color);
 
     case NPY_UINT16:
-      return inner_line<uint16_t>(image, y1, x1, y2, x2, color);
+      return inner_box<uint16_t>(image, y, x, h, w, color);
 
     case NPY_FLOAT64:
-      return inner_line<double>(image, y1, x1, y2, x2, color);
+      return inner_box<double>(image, y, x, h, w, color);
 
     default:
       PyErr_Format(PyExc_TypeError, "drawing operation does not support images with  data type `%s' (choose from uint8|uint16|float64)", PyBlitzArray_TypenumAsString(image->type_num));
