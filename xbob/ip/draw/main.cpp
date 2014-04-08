@@ -36,7 +36,7 @@ static xbob::extension::FunctionDoc s_point = xbob::extension::FunctionDoc(
     .add_prototype("image, p, color")
     .add_parameter("image", "array (uint8|uint16|float64, 3D)", "Input array containing an image with the shape ``(height, width)`` (for gray-scale images) or ``(3, height, width)`` (for color images)")
     .add_parameter("p", "tuple", "a point, on the format ``(y, x)``, defining the location on the image that the pixel is going to be drawn.")
-    .add_parameter("color", "scalar|tuple", "Color of the pixel. In case the input image is gray-scale (2D), this should be a single scalar. If the input image is colored (3D), then it should be a sequence containing 3 scalars, representing the levels of red, green and blue (in this order) of the pixel to be drawn.")
+    .add_parameter("color", "scalar|tuple", "Color of the pixel. In case the input image is gray-scale (2D), this should be a single scalar. If the input image is colored (3D), then it should be a sequence containing 3 scalars, representing the levels of red, green and blue (in this order) of the pixel to be drawn. The type of scalars representing colors should match the pixel type in ``image``.")
     ;
 
 extern PyObject* PyBobIpDraw_TryPoint(PyObject*, PyObject* args, PyObject* kwds);
@@ -54,7 +54,7 @@ static xbob::extension::FunctionDoc s_try_point = xbob::extension::FunctionDoc(
     .add_prototype("image, p, color")
     .add_parameter("image", "array (uint8|uint16|float64, 3D)", "Input array containing an image with the shape ``(height, width)`` (for gray-scale images) or ``(3, height, width)`` (for color images)")
     .add_parameter("p", "tuple", "a point, on the format ``(y, x)``, defining the location on the image that the pixel is going to be drawn.")
-    .add_parameter("color", "scalar|tuple", "Color of the pixel. In case the input image is gray-scale (2D), this should be a single scalar. If the input image is colored (3D), then it should be a sequence containing 3 scalars, representing the levels of red, green and blue (in this order) of the pixel to be drawn.")
+    .add_parameter("color", "scalar|tuple", "Color of the pixel. In case the input image is gray-scale (2D), this should be a single scalar. If the input image is colored (3D), then it should be a sequence containing 3 scalars, representing the levels of red, green and blue (in this order) of the pixel to be drawn. The type of scalars representing colors should match the pixel type in ``image``.")
     ;
 
 extern PyObject* PyBobIpDraw_Line(PyObject*, PyObject* args, PyObject* kwds);
@@ -86,12 +86,70 @@ static xbob::extension::FunctionDoc s_line = xbob::extension::FunctionDoc(
     .add_prototype("image, p1, p2, color")
     .add_parameter("image", "array (uint8|uint16|float64, 3D)", "Input array containing an image with the shape ``(height, width)`` (for gray-scale images) or ``(3, height, width)`` (for color images)")
     .add_parameter("p1, p2", "tuple", "Points, on the format ``(y, x)``, defining the start and end of the line. Portions of the line outside the image range will be ignored.")
-    .add_parameter("color", "scalar|tuple", "Color of the pixel. In case the input image is gray-scale (2D), this should be a single scalar. If the input image is colored (3D), then it should be a sequence containing 3 scalars, representing the levels of red, green and blue (in this order) of the pixel to be drawn.")
+    .add_parameter("color", "scalar|tuple", "Color of the pixel. In case the input image is gray-scale (2D), this should be a single scalar. If the input image is colored (3D), then it should be a sequence containing 3 scalars, representing the levels of red, green and blue (in this order) of the pixel to be drawn. The type of scalars representing colors should match the pixel type in ``image``.")
+    ;
+
+extern PyObject* PyBobIpDraw_Cross(PyObject*, PyObject* args, PyObject* kwds);
+static xbob::extension::FunctionDoc s_cross = xbob::extension::FunctionDoc(
+    "cross",
+
+    "Draws a cross in the given (gray-scale or color) image.",
+
+    "This method can draw a cross-like set of lines resembling an ``x``, in "
+    "either gray-scale (2D) or color images. The cross is centered on a given "
+    "point ``p`` and will have the ``radius`` defined. Images have to be "
+    ":py:class:`numpy.ndarray`'s with either ``uint8``, ``uint16`` or "
+    "``float64`` data type. Trying to access outside the image range will "
+    "raise a :py:class:`RuntimeError`.\n"
+    "\n"
+    "In case you pass a 2D array representing a gray-scale image, this function "
+    "expects you pass a single scalar as a value for the input parameter "
+    "``color``. In the case you pass a 3D array (color image), then the color "
+    "parameter should be set to a tuple contanining 3 scalars representing the "
+    "levels for each of the color components (red, green and blue)\n"
+    "\n"
+    "Color images are expected to be represented using the first dimension for "
+    "the color planes: ``(3, height, width)``. Images are modified in place.\n"
+    )
+
+    .add_prototype("image, p, radius, color")
+    .add_parameter("image", "array (uint8|uint16|float64, 3D)", "Input array containing an image with the shape ``(height, width)`` (for gray-scale images) or ``(3, height, width)`` (for color images)")
+    .add_parameter("p", "tuple", "a point, on the format ``(y, x)``, defining the location on the image that the pixel is going to be drawn.")
+    .add_parameter("radius", "int", "the value of the radius for the cross to be drawn, in pixels")
+    .add_parameter("color", "scalar|tuple", "Color of the cross sign. In case the input image is gray-scale (2D), this should be a single scalar. If the input image is colored (3D), then it should be a sequence containing 3 scalars, representing the levels of red, green and blue (in this order) of the pixel to be drawn. The type of scalars representing colors should match the pixel type in ``image``.")
+    ;
+
+extern PyObject* PyBobIpDraw_Plus(PyObject*, PyObject* args, PyObject* kwds);
+static xbob::extension::FunctionDoc s_plus = xbob::extension::FunctionDoc(
+    "plus",
+
+    "Draws a plus sign in the given (gray-scale or color) image.",
+
+    "This method can draw a cross-like set of lines resembling an ``+``, in "
+    "either gray-scale (2D) or color images. The cross is centered on a given "
+    "point ``p`` and will have the ``radius`` defined. Images have to be "
+    ":py:class:`numpy.ndarray`'s with either ``uint8``, ``uint16`` or "
+    "``float64`` data type. Trying to access outside the image range will "
+    "raise a :py:class:`RuntimeError`.\n"
+    "\n"
+    "In case you pass a 2D array representing a gray-scale image, this function "
+    "expects you pass a single scalar as a value for the input parameter "
+    "``color``. In the case you pass a 3D array (color image), then the color "
+    "parameter should be set to a tuple contanining 3 scalars representing the "
+    "levels for each of the color components (red, green and blue)\n"
+    "\n"
+    "Color images are expected to be represented using the first dimension for "
+    "the color planes: ``(3, height, width)``. Images are modified in place.\n"
+    )
+
+    .add_prototype("image, p, radius, color")
+    .add_parameter("image", "array (uint8|uint16|float64, 3D)", "Input array containing an image with the shape ``(height, width)`` (for gray-scale images) or ``(3, height, width)`` (for color images)")
+    .add_parameter("p", "tuple", "a point, on the format ``(y, x)``, defining the location on the image that the pixel is going to be drawn.")
+    .add_parameter("radius", "int", "the value of the radius for the cross to be drawn, in pixels")
+    .add_parameter("color", "scalar|tuple", "Color of the cross sign. In case the input image is gray-scale (2D), this should be a single scalar. If the input image is colored (3D), then it should be a sequence containing 3 scalars, representing the levels of red, green and blue (in this order) of the pixel to be drawn. The type of scalars representing colors should match the pixel type in ``image``.")
     ;
 
 /**
-  def("draw_cross", &draw_cross, (arg("image"), arg("y"), arg("x"), arg("radius"), arg("color")), "Draws a cross with a given radius and color at the image. Uses the draw_line() primitive above. The cross will look like an 'x' and not like a '+'. To get a '+' sign, use the draw_cross_plus() variant. This method supports both grayscale (2D) or color RGB (3D) images. Depending on your image type, select an appropriate color value: a single gray value for 2D grayscale images or a 3-tuple containing the RGB color to set during drawing.");
-  def("draw_cross_plus", &draw_cross_plus, (arg("image"), arg("y"), arg("x"), arg("radius"), arg("color")), "Draws a cross with a given radius and color at the image. Uses the draw_line() primitive above. The cross will look like an '+' and not like a 'x'. To get a 'x' sign, use the draw_cross() variant. This method supports both grayscale (2D) or color RGB (3D) images. Depending on your image type, select an appropriate color value: a single gray value for 2D grayscale images or a 3-tuple containing the RGB color to set during drawing.");
   def("draw_box", &draw_box, (arg("image"), arg("y"), arg("x"), arg("height"), arg("width"), arg("color")), "Draws a box at the image using the draw_line() primitive. This method supports both grayscale (2D) or color RGB (3D) images. Depending on your image type, select an appropriate color value: a single gray value for 2D grayscale images or a 3-tuple containing the RGB color to set during drawing.");
 **/
 
@@ -113,6 +171,18 @@ static PyMethodDef module_methods[] = {
       (PyCFunction)PyBobIpDraw_Line,
       METH_VARARGS|METH_KEYWORDS,
       s_line.doc()
+    },
+    {
+      s_cross.name(),
+      (PyCFunction)PyBobIpDraw_Cross,
+      METH_VARARGS|METH_KEYWORDS,
+      s_cross.doc()
+    },
+    {
+      s_plus.name(),
+      (PyCFunction)PyBobIpDraw_Plus,
+      METH_VARARGS|METH_KEYWORDS,
+      s_plus.doc()
     },
     {0}  /* Sentinel */
 };

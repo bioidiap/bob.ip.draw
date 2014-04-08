@@ -11,7 +11,7 @@
 import numpy
 import nose.tools
 
-from . import point, try_point, line#, box
+from . import point, try_point, line, cross, plus#, box
 
 def test_gray_point():
 
@@ -20,15 +20,15 @@ def test_gray_point():
   image.fill(0)
 
   # Draws a white point on the middle
-  point(image, (50, 50), 255)
-  nose.tools.eq_(image[50, 50], 255)
+  point(image, (50, 40), 255)
+  nose.tools.eq_(image[50, 40], 255)
 
 def test_does_not_raise_gray():
 
   image = numpy.ndarray((100, 100), 'uint8')
   image.fill(0)
   imcopy = image.copy()
-  try_point(imcopy, (100, 100), 255)
+  try_point(imcopy, (30, 100), 255)
   assert  numpy.array_equal(image, imcopy)  # no change is made
 
 @nose.tools.raises(RuntimeError)
@@ -49,8 +49,8 @@ def test_color_point():
   image.fill(0)
 
   # Draws a white point on the middle
-  point(image, (50, 50), white)
-  assert numpy.array_equal(image[:,50, 50],a1)
+  point(image, (50, 30), white)
+  assert numpy.array_equal(image[:,50, 30],a1)
 
 def test_does_not_raise_color():
 
@@ -64,7 +64,7 @@ def test_does_not_raise_color():
 def test_raises_color():
 
   image = numpy.ndarray((3, 100, 100), 'uint8')
-  point(image, (100, 100), (255, 255, 255))
+  point(image, (100, 20), (255, 255, 255))
 
 def test_line():
 
@@ -93,6 +93,31 @@ def test_line():
   line(image, (50, 70), (50, 50), 65)
   for k in range(50,70):
     nose.tools.eq_(image[50,k], 65)
+
+def test_cross_gray():
+
+  image = numpy.ndarray((100, 100), 'uint8')
+  image.fill(0)
+  cross(image, (50, 40), 5, 255)
+  nose.tools.eq_(image[50, 40], 255)
+
+def test_plus_color():
+
+  image = numpy.ndarray((3, 100, 100), 'uint8')
+  image.fill(0)
+
+  radius = 3
+  center = (40, 50)
+  color = (255, 255, 255)
+  plus(image, center, radius, color)
+
+  # should have matching color along the vertical line
+  for y in range(center[0]-radius, center[0]+radius+1):
+    assert numpy.array_equal(image[:, y, center[1]], color)
+
+  # should have a matching color along the horizontal line
+  for x in range(center[1]-radius, center[1]+radius+1):
+    assert numpy.array_equal(image[:, y, center[1]], color)
 
 def test_box():
 

@@ -45,9 +45,10 @@ setup(
         ),
       Extension("xbob.ip.draw._library",
         [
+          "xbob/ip/draw/cross.cpp",
           "xbob/ip/draw/line.cpp",
-          "xbob/ip/draw/point.cpp",
           "xbob/ip/draw/try_point.cpp",
+          "xbob/ip/draw/point.cpp",
           "xbob/ip/draw/main.cpp",
           ],
         packages = packages,
