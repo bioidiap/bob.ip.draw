@@ -8,8 +8,8 @@
  */
 
 
-#include <xbob.blitz/cppapi.h>
-#include <xbob.blitz/cleanup.h>
+#include <bob.blitz/cppapi.h>
+#include <bob.blitz/cleanup.h>
 
 #include "drawing.h"
 #include "utils.h"

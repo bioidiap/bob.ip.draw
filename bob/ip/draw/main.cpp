@@ -8,12 +8,12 @@
 #ifdef NO_IMPORT_ARRAY
 #undef NO_IMPORT_ARRAY
 #endif
-#include <xbob.blitz/capi.h>
-#include <xbob.blitz/cleanup.h>
-#include <xbob.extension/documentation.h>
+#include <bob.blitz/capi.h>
+#include <bob.blitz/cleanup.h>
+#include <bob.extension/documentation.h>
 
 extern PyObject* PyBobIpDraw_Point(PyObject*, PyObject* args, PyObject* kwds);
-static xbob::extension::FunctionDoc s_point = xbob::extension::FunctionDoc(
+static bob::extension::FunctionDoc s_point = bob::extension::FunctionDoc(
     "point",
 
     "Draws a point in the given (gray-scale or color) image.",
@@ -40,7 +40,7 @@ static xbob::extension::FunctionDoc s_point = xbob::extension::FunctionDoc(
     ;
 
 extern PyObject* PyBobIpDraw_TryPoint(PyObject*, PyObject* args, PyObject* kwds);
-static xbob::extension::FunctionDoc s_try_point = xbob::extension::FunctionDoc(
+static bob::extension::FunctionDoc s_try_point = bob::extension::FunctionDoc(
     "try_point",
 
     "Tries to draw a point in the given (gray-scale or color) image.",
@@ -58,7 +58,7 @@ static xbob::extension::FunctionDoc s_try_point = xbob::extension::FunctionDoc(
     ;
 
 extern PyObject* PyBobIpDraw_Line(PyObject*, PyObject* args, PyObject* kwds);
-static xbob::extension::FunctionDoc s_line = xbob::extension::FunctionDoc(
+static bob::extension::FunctionDoc s_line = bob::extension::FunctionDoc(
     "line",
 
     "Draws a line between two points on the given image.",
@@ -90,7 +90,7 @@ static xbob::extension::FunctionDoc s_line = xbob::extension::FunctionDoc(
     ;
 
 extern PyObject* PyBobIpDraw_Cross(PyObject*, PyObject* args, PyObject* kwds);
-static xbob::extension::FunctionDoc s_cross = xbob::extension::FunctionDoc(
+static bob::extension::FunctionDoc s_cross = bob::extension::FunctionDoc(
     "cross",
 
     "Draws a cross in the given (gray-scale or color) image.",
@@ -120,7 +120,7 @@ static xbob::extension::FunctionDoc s_cross = xbob::extension::FunctionDoc(
     ;
 
 extern PyObject* PyBobIpDraw_Plus(PyObject*, PyObject* args, PyObject* kwds);
-static xbob::extension::FunctionDoc s_plus = xbob::extension::FunctionDoc(
+static bob::extension::FunctionDoc s_plus = bob::extension::FunctionDoc(
     "plus",
 
     "Draws a plus sign in the given (gray-scale or color) image.",
@@ -150,7 +150,7 @@ static xbob::extension::FunctionDoc s_plus = xbob::extension::FunctionDoc(
     ;
 
 extern PyObject* PyBobIpDraw_Box(PyObject*, PyObject* args, PyObject* kwds);
-static xbob::extension::FunctionDoc s_box = xbob::extension::FunctionDoc(
+static bob::extension::FunctionDoc s_box = bob::extension::FunctionDoc(
     "box",
 
     "Draws a box anchored at a point, with the given dimensions.",
@@ -227,7 +227,7 @@ PyDoc_STRVAR(module_docstr, "Bob image drawing utilitiles");
 #if PY_VERSION_HEX >= 0x03000000
 static PyModuleDef module_definition = {
   PyModuleDef_HEAD_INIT,
-  XBOB_EXT_MODULE_NAME,
+  BOB_EXT_MODULE_NAME,
   module_docstr,
   -1,
   module_methods,
@@ -240,23 +240,23 @@ static PyObject* create_module (void) {
 # if PY_VERSION_HEX >= 0x03000000
   PyObject* m = PyModule_Create(&module_definition);
 # else
-  PyObject* m = Py_InitModule3(XBOB_EXT_MODULE_NAME, module_methods, module_docstr);
+  PyObject* m = Py_InitModule3(BOB_EXT_MODULE_NAME, module_methods, module_docstr);
 # endif
   if (!m) return 0;
   auto m_ = make_safe(m); ///< protects against early returns
 
-  if (PyModule_AddStringConstant(m, "__version__", XBOB_EXT_MODULE_VERSION) < 0)
+  if (PyModule_AddStringConstant(m, "__version__", BOB_EXT_MODULE_VERSION) < 0)
     return 0;
 
-  /* imports xbob.blitz C-API + dependencies */
-  if (import_xbob_blitz() < 0) return 0;
+  /* imports bob.blitz C-API + dependencies */
+  if (import_bob_blitz() < 0) return 0;
 
   Py_INCREF(m);
   return m;
 
 }
 
-PyMODINIT_FUNC XBOB_EXT_ENTRY_NAME (void) {
+PyMODINIT_FUNC BOB_EXT_ENTRY_NAME (void) {
 # if PY_VERSION_HEX >= 0x03000000
   return
 # endif

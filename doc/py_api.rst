@@ -7,8 +7,8 @@
 ============
 
 This section includes information for using the pure Python API of
-``xbob.ip.draw``.
+``bob.ip.draw``.
 
 
-.. automodule:: xbob.ip.draw
+.. automodule:: bob.ip.draw
 

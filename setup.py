@@ -4,18 +4,18 @@
 # Thu 30 Jan 08:45:49 2014 CET
 
 from setuptools import setup, find_packages, dist
-dist.Distribution(dict(setup_requires=['xbob.blitz']))
-from xbob.blitz.extension import Extension
+dist.Distribution(dict(setup_requires=['bob.blitz']))
+from bob.blitz.extension import Extension
 
 packages = ['boost']
 version = '2.0.0a0'
 
 setup(
 
-    name='xbob.ip.draw',
+    name='bob.ip.draw',
     version=version,
     description='Line and Box drawing utilities',
-    url='http://github.com/bioidiap/xbob.ip.draw',
+    url='http://github.com/bioidiap/bob.ip.draw',
     license='BSD',
     author='Andre Anjos',
     author_email='andre.anjos@idiap.ch',
@@ -27,30 +27,30 @@ setup(
 
     install_requires=[
       'setuptools',
-      'xbob.blitz',
+      'bob.blitz',
     ],
 
     namespace_packages=[
-      "xbob",
-      "xbob.ip",
+      "bob",
+      "bob.ip",
       ],
 
     ext_modules = [
-      Extension("xbob.ip.draw.version",
+      Extension("bob.ip.draw.version",
         [
-          "xbob/ip/draw/version.cpp",
+          "bob/ip/draw/version.cpp",
           ],
         version = version,
         packages = packages,
         ),
-      Extension("xbob.ip.draw._library",
+      Extension("bob.ip.draw._library",
         [
-          "xbob/ip/draw/point.cpp",
-          "xbob/ip/draw/try_point.cpp",
-          "xbob/ip/draw/line.cpp",
-          "xbob/ip/draw/cross.cpp",
-          "xbob/ip/draw/box.cpp",
-          "xbob/ip/draw/main.cpp",
+          "bob/ip/draw/point.cpp",
+          "bob/ip/draw/try_point.cpp",
+          "bob/ip/draw/line.cpp",
+          "bob/ip/draw/cross.cpp",
+          "bob/ip/draw/box.cpp",
+          "bob/ip/draw/main.cpp",
           ],
         packages = packages,
         version = version,

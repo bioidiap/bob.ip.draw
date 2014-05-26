@@ -8,15 +8,15 @@
  */
 
 
-#include <xbob.blitz/cppapi.h>
-#include <xbob.blitz/cleanup.h>
+#include <bob.blitz/cppapi.h>
+#include <bob.blitz/cleanup.h>
 
 #include "drawing.h"
 #include "utils.h"
 
 template <typename T>
 static PyObject* inner_point (PyBlitzArrayObject* image,
-    Py_ssize_t y, Py_ssize_t x, PyObject* color) {
+    int y, int x, PyObject* color) {
 
   switch (image->ndim) {
 
@@ -27,14 +27,14 @@ static PyObject* inner_point (PyBlitzArrayObject* image,
         if (!ok) return 0;
 
         try {
-          bob::ip::draw_point(*PyBlitzArrayCxx_AsBlitz<T,2>(image), y, x, c);
+          bob::ip::try_draw_point(*PyBlitzArrayCxx_AsBlitz<T,2>(image), y, x, c);
         }
         catch (std::exception& e) {
           PyErr_Format(PyExc_RuntimeError, "%s", e.what());
           return 0;
         }
         catch (...) {
-          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw_point");
+          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::try_draw_point");
           return 0;
         }
       }
@@ -47,7 +47,7 @@ static PyObject* inner_point (PyBlitzArrayObject* image,
         if (!ok) return 0;
 
         try {
-          bob::ip::draw_point(*PyBlitzArrayCxx_AsBlitz<T,3>(image), y, x,
+          bob::ip::try_draw_point(*PyBlitzArrayCxx_AsBlitz<T,3>(image), y, x,
               boost::tuple<T,T,T>(r, g, b));
         }
         catch (std::exception& e) {
@@ -55,7 +55,7 @@ static PyObject* inner_point (PyBlitzArrayObject* image,
           return 0;
         }
         catch (...) {
-          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw_point");
+          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::try_draw_point");
           return 0;
         }
 
@@ -72,7 +72,7 @@ static PyObject* inner_point (PyBlitzArrayObject* image,
 
 }
 
-PyObject* PyBobIpDraw_Point (PyObject*, PyObject* args, PyObject* kwds) {
+PyObject* PyBobIpDraw_TryPoint (PyObject*, PyObject* args, PyObject* kwds) {
 
   static const char* const_kwlist[] = {"image", "p", "color", 0};
   static char** kwlist = const_cast<char**>(const_kwlist);
