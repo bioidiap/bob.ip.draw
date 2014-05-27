@@ -5,7 +5,7 @@ matrix:
   - python: 2.7
     env:
     - secure: GGZUvnopK5qr0QTvELhdHSFRwelajF9/WB+UFYoBEgUhP9QcxJYxj9cPQj/vTZDTAapoKkjEIzAidoEWl88TY8ehVvNCuk94X2gqlUP0NaH7GtU8NBEv1jid8hOqgSz9Mn7d1lYVgCeW27tGPvsuZfHA3rXukAgolLF40XoLc9U=
-    secure: atmkr5YwGfz4YOK/043U3W8hcZG4Dm/7K0XNej4hIeiDSjQl8psfldeiBs3FrN8dAnwjG+OoeJTCEolJk/ABhnkmudMlAxBgKszvvmwmkkntBE39WlGQXsyTm1/yjiaDILqxqLup5LHYnn0YTMsGcSZEMpDTBN94cW78RJl7opk=
+    - secure: KShdt4xv2L+7Wp4DethcTIa/J3xABvha3LFBj5jF2Y+c2J/cIoZ+9TA7ycXuMpre9qhfCh5Hyhhj8YVNX+iyVBWkFe5EX6rluiE9ZOcPAXZcTrbw8eSGG+ToJZWut7lUZ4Z4JXZr4ldl1jLvunfvYEgJU4pcyUkwfMe2Rtf4toE=
   - python: 3.2
     env:
     - NUMPYSPEC===1.7.1
