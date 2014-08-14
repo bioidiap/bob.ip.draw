@@ -11,7 +11,6 @@
 #include <bob.blitz/cppapi.h>
 #include <bob.blitz/cleanup.h>
 
-#include "drawing.h"
 #include "utils.h"
 
 template <typename T>
@@ -27,7 +26,7 @@ static PyObject* inner_cross (PyBlitzArrayObject* image,
         if (!ok) return 0;
 
         try {
-          bob::ip::draw_cross(*PyBlitzArrayCxx_AsBlitz<T,2>(image),
+          bob::ip::draw::draw_cross(*PyBlitzArrayCxx_AsBlitz<T,2>(image),
               y, x, radius, c);
           Py_RETURN_NONE;
         }
@@ -35,7 +34,7 @@ static PyObject* inner_cross (PyBlitzArrayObject* image,
           PyErr_Format(PyExc_RuntimeError, "%s", e.what());
         }
         catch (...) {
-          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw_cross");
+          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw::draw_cross");
         }
       }
       break;
@@ -47,7 +46,7 @@ static PyObject* inner_cross (PyBlitzArrayObject* image,
         if (!ok) return 0;
 
         try {
-          bob::ip::draw_cross(*PyBlitzArrayCxx_AsBlitz<T,3>(image),
+          bob::ip::draw::draw_cross(*PyBlitzArrayCxx_AsBlitz<T,3>(image),
               y, x, radius, boost::tuple<T,T,T>(r, g, b));
           Py_RETURN_NONE;
         }
@@ -55,7 +54,7 @@ static PyObject* inner_cross (PyBlitzArrayObject* image,
           PyErr_Format(PyExc_RuntimeError, "%s", e.what());
         }
         catch (...) {
-          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw_cross");
+          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw::draw_cross");
         }
 
       }
@@ -119,7 +118,7 @@ static PyObject* inner_plus (PyBlitzArrayObject* image,
         if (!ok) return 0;
 
         try {
-          bob::ip::draw_cross_plus(*PyBlitzArrayCxx_AsBlitz<T,2>(image),
+          bob::ip::draw::draw_cross_plus(*PyBlitzArrayCxx_AsBlitz<T,2>(image),
               y, x, radius, c);
           Py_RETURN_NONE;
         }
@@ -127,7 +126,7 @@ static PyObject* inner_plus (PyBlitzArrayObject* image,
           PyErr_Format(PyExc_RuntimeError, "%s", e.what());
         }
         catch (...) {
-          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw_cross_plus");
+          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw::draw_cross_plus");
         }
       }
       break;
@@ -139,7 +138,7 @@ static PyObject* inner_plus (PyBlitzArrayObject* image,
         if (!ok) return 0;
 
         try {
-          bob::ip::draw_cross_plus(*PyBlitzArrayCxx_AsBlitz<T,3>(image),
+          bob::ip::draw::draw_cross_plus(*PyBlitzArrayCxx_AsBlitz<T,3>(image),
               y, x, radius, boost::tuple<T,T,T>(r, g, b));
           Py_RETURN_NONE;
         }
@@ -147,7 +146,7 @@ static PyObject* inner_plus (PyBlitzArrayObject* image,
           PyErr_Format(PyExc_RuntimeError, "%s", e.what());
         }
         catch (...) {
-          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw_cross_plus");
+          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw::draw_cross_plus");
         }
 
       }

@@ -1,5 +1,4 @@
 /**
- * @file bob/ip/drawing.h
  * @date Sun Jul 24 21:13:21 2011 +0200
  * @author Andre Anjos <andre.anjos@idiap.ch>
  *
@@ -8,15 +7,15 @@
  * Copyright (C) 2011-2013 Idiap Research Institute, Martigny, Switzerland
  */
 
-#ifndef BOB_IP_DRAWING_H
-#define BOB_IP_DRAWING_H
+#ifndef BOB_IP_DRAW_DRAWING_H
+#define BOB_IP_DRAW_DRAWING_H
 
 #include <stdexcept>
 #include <algorithm>
 #include <blitz/array.h>
 #include <boost/tuple/tuple.hpp>
 
-namespace bob { namespace ip {
+namespace bob { namespace ip { namespace draw {
 
   /**
    * Draws a point in the 2D gray-scale image. No checks, if you try to access
@@ -270,6 +269,6 @@ namespace bob { namespace ip {
     draw_line(image, y, x + width, y + height, x + width, color);
   }
 
-}}
+} } } // namespaces
 
-#endif /* BOB_IP_DRAWING_H */
+#endif /* BOB_IP_DRAW_DRAWING_H */

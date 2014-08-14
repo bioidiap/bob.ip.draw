@@ -8,6 +8,7 @@
  */
 
 #include <Python.h>
+#include <bob.ip.draw/drawing.h>
 
 /**
  * Returns and checks a single component color

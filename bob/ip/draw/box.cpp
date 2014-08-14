@@ -10,7 +10,6 @@
 #include <bob.blitz/cppapi.h>
 #include <bob.blitz/cleanup.h>
 
-#include "drawing.h"
 #include "utils.h"
 
 template <typename T>
@@ -26,7 +25,7 @@ static PyObject* inner_box (PyBlitzArrayObject* image,
         if (!ok) return 0;
 
         try {
-          bob::ip::draw_box(*PyBlitzArrayCxx_AsBlitz<T,2>(image), y, x,
+          bob::ip::draw::draw_box(*PyBlitzArrayCxx_AsBlitz<T,2>(image), y, x,
               h, w, c);
         }
         catch (std::exception& e) {
@@ -34,7 +33,7 @@ static PyObject* inner_box (PyBlitzArrayObject* image,
           return 0;
         }
         catch (...) {
-          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw_box");
+          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw::draw_box");
           return 0;
         }
 
@@ -48,7 +47,7 @@ static PyObject* inner_box (PyBlitzArrayObject* image,
         if (!ok) return 0;
 
         try {
-          bob::ip::draw_box(*PyBlitzArrayCxx_AsBlitz<T,3>(image), y, x,
+          bob::ip::draw::draw_box(*PyBlitzArrayCxx_AsBlitz<T,3>(image), y, x,
               h, w, boost::tuple<T,T,T>(r, g, b));
         }
         catch (std::exception& e) {
@@ -56,7 +55,7 @@ static PyObject* inner_box (PyBlitzArrayObject* image,
           return 0;
         }
         catch (...) {
-          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw_box");
+          PyErr_SetString(PyExc_RuntimeError, "caught unknown exception while calling C++ bob::ip::draw::draw_box");
           return 0;
         }
 

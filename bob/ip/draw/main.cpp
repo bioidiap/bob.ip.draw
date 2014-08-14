@@ -2,7 +2,7 @@
  * @author Andre Anjos <andre.anjos@idiap.ch>
  * @date Fri  4 Apr 15:02:59 2014 CEST
  *
- * @brief Bindings to bob::ip color converters
+ * @brief Bindings to bob::ip::draw
  */
 
 #ifdef NO_IMPORT_ARRAY
