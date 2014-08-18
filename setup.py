@@ -4,7 +4,7 @@
 # Thu 30 Jan 08:45:49 2014 CET
 
 from setuptools import setup, find_packages, dist
-dist.Distribution(dict(setup_requires=['bob.blitz', 'bob.core']))
+dist.Distribution(dict(setup_requires=['bob.blitz']))
 from bob.blitz.extension import Extension
 
 import os
@@ -47,7 +47,6 @@ setup(
         ],
         version = version,
         packages = packages,
-        bob_packages = ['bob.core'],
         include_dirs = [include_dir]
       ),
       Extension("bob.ip.draw._library",
@@ -61,7 +60,6 @@ setup(
         ],
         packages = packages,
         version = version,
-        bob_packages = ['bob.core'],
         include_dirs = [include_dir]
       ),
     ],

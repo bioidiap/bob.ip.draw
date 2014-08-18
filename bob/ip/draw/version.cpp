@@ -5,7 +5,11 @@
  * @brief Binds configuration information available from bob
  */
 
-#include <Python.h>
+#ifdef NO_IMPORT_ARRAY
+#undef NO_IMPORT_ARRAY
+#endif
+#include <bob.blitz/capi.h>
+#include <bob.blitz/cleanup.h>
 
 #include <string>
 #include <cstdlib>
@@ -13,12 +17,6 @@
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/version.hpp>
 #include <boost/format.hpp>
-
-#ifdef NO_IMPORT_ARRAY
-#undef NO_IMPORT_ARRAY
-#endif
-#include <bob.blitz/capi.h>
-#include <bob.blitz/cleanup.h>
 
 static int dict_set(PyObject* d, const char* key, const char* value) {
   PyObject* v = Py_BuildValue("s", value);
