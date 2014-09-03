@@ -5,7 +5,7 @@
 
 from setuptools import setup, find_packages, dist
 dist.Distribution(dict(setup_requires=['bob.blitz']))
-from bob.blitz.extension import Extension
+from bob.blitz.extension import Extension, build_ext
 
 import os
 package_dir = os.path.dirname(os.path.realpath(__file__))
@@ -64,8 +64,12 @@ setup(
       ),
     ],
 
+    cmdclass = {
+      'build_ext': build_ext
+    },
+
     classifiers = [
-      'Development Status :: 3 - Alpha',
+      'Development Status :: 4 - Beta',
       'Intended Audience :: Developers',
       'License :: OSI Approved :: BSD License',
       'Natural Language :: English',
