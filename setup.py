@@ -4,12 +4,15 @@
 # Thu 30 Jan 08:45:49 2014 CET
 
 from setuptools import setup, find_packages, dist
-dist.Distribution(dict(setup_requires=['bob.blitz']))
+dist.Distribution(dict(setup_requires=['bob.extension', 'bob.blitz']))
 from bob.blitz.extension import Extension, build_ext
 
 import os
 package_dir = os.path.dirname(os.path.realpath(__file__))
 include_dir = os.path.join(package_dir, 'bob', 'ip', 'draw', 'include')
+
+from bob.extension.utils import load_requirements
+build_requires = load_requirements()
 
 packages = ['boost']
 version = '2.0.0a0'
@@ -30,10 +33,8 @@ setup(
     include_package_data=True,
     zip_safe=False,
 
-    install_requires=[
-      'setuptools',
-      'bob.blitz',
-    ],
+    setup_requires = build_requires,
+    install_requires = build_requires,
 
     namespace_packages=[
       "bob",
