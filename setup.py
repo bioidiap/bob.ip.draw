@@ -21,7 +21,7 @@ setup(
 
     name='bob.ip.draw',
     version=version,
-    description='Line and Box drawing utilities',
+    description='Line and Box drawing utilities of Bob',
     url='http://github.com/bioidiap/bob.ip.draw',
     license='BSD',
     author='Andre Anjos',
@@ -70,6 +70,7 @@ setup(
     },
 
     classifiers = [
+      'Framework :: Bob',
       'Development Status :: 4 - Beta',
       'Intended Audience :: Developers',
       'License :: OSI Approved :: BSD License',
