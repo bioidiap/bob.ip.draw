@@ -4,14 +4,13 @@
 ..
 .. Copyright (C) 2011-2013 Idiap Research Institute, Martigny, Switzerland
 
-=================================
- Bob's Color Conversion Routines
-=================================
+========================
+ Bob's Drawing Routines
+========================
 
 .. todolist::
 
-This module contains base functionality from Bob bound to Python, available in
-the C++ counter-part ``bob::ip``. It includes utilities for drawing lines and
+This module contains base functionality from Bob bound to Python, available in the C++ counter-part ``bob::ip::draw``. It includes utilities for drawing lines and
 boxes in images.
 
 Documentation
