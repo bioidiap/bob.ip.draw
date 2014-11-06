@@ -14,8 +14,10 @@ include_dir = os.path.join(package_dir, 'bob', 'ip', 'draw', 'include')
 from bob.extension.utils import load_requirements
 build_requires = load_requirements()
 
+# Define package version
+version = open("version.txt").read().rstrip()
+
 packages = ['boost']
-version = '2.0.0a0'
 
 setup(
 
