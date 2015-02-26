@@ -8,13 +8,14 @@
  */
 
 #include <Python.h>
+#include <bob.extension/defines.h>
 #include <bob.ip.draw/drawing.h>
 
 /**
  * Returns and checks a single component color
  */
 template <typename T> int get_color1(PyObject* o, T& v) {
-  if (!PyArray_CheckScalar(o) && !PyNumber_Check(o)) {
+  if (!PyArray_CheckScalar(o) && !PyBob_NumberCheck(o)) {
     PyErr_Format(PyExc_TypeError, "drawing on a 2D image (gray-scale) requires a color which is a scalar, not `%s'", Py_TYPE(o)->tp_name);
     return 0;
   }
