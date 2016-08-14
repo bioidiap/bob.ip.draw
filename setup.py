@@ -24,7 +24,7 @@ setup(
     name='bob.ip.draw',
     version=version,
     description='Line and Box drawing utilities of Bob',
-    url='http://github.com/bioidiap/bob.ip.draw',
+    url='http://gitlab.idiap.ch/bob/bob.ip.draw',
     license='BSD',
     author='Andre Anjos',
     author_email='andre.anjos@idiap.ch',
