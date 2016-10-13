@@ -1,0 +1,2 @@
+# Not properly documented on Python 2.7 manual
+py:exc RuntimeError
