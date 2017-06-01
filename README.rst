@@ -5,10 +5,10 @@
    :target: http://pythonhosted.org/bob.ip.draw/index.html
 .. image:: http://img.shields.io/badge/docs-latest-orange.svg
    :target: https://www.idiap.ch/software/bob/docs/latest/bob/bob.ip.draw/master/index.html
-.. image:: https://gitlab.idiap.ch/bob/bob.ip.draw/badges/v2.0.8/build.svg
-   :target: https://gitlab.idiap.ch/bob/bob.ip.draw/commits/v2.0.8
-.. image:: https://gitlab.idiap.ch/bob/bob.ip.draw/badges/v2.0.8/coverage.svg
-   :target: https://gitlab.idiap.ch/bob/bob.ip.draw/commits/v2.0.8
+.. image:: https://gitlab.idiap.ch/bob/bob.ip.draw/badges/master/build.svg
+   :target: https://gitlab.idiap.ch/bob/bob.ip.draw/commits/master
+.. image:: https://gitlab.idiap.ch/bob/bob.ip.draw/badges/master/coverage.svg
+   :target: https://gitlab.idiap.ch/bob/bob.ip.draw/commits/master
 .. image:: https://img.shields.io/badge/gitlab-project-0000c0.svg
    :target: https://gitlab.idiap.ch/bob/bob.ip.draw
 .. image:: http://img.shields.io/pypi/v/bob.ip.draw.svg
