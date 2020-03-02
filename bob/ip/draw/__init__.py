@@ -10,3 +10,8 @@ def get_config():
 
 # gets sphinx autodoc done right - don't remove it
 __all__ = [_ for _ in dir() if not _.startswith('_')]
+
+
+import warnings
+warnings.simplefilter('default')
+warnings.warn("bob.ip.draw will be deprecated in 01/04/2020. Please use matplotlib for plotting.", DeprecationWarning)
